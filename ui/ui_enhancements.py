@@ -292,31 +292,34 @@ def render_status_badge(status, value, icon="", color_type="info"):
     )
 
 
-def render_external_research_command_center(address: str):
-    """Render right-sidebar command center with pre-filled external research links."""
+def render_external_research_command_center(address: str, lat: float = None, lon: float = None):
+    import streamlit as st
+    from urllib.parse import quote_plus
+
     st.markdown("### 🔎 External Research Command Center")
-
     clean_address = (address or "").strip()
-    if not clean_address:
-        st.info("Search a site address to enable external research links.")
-        return
+    encoded = quote_plus(clean_address) if clean_address else ""
 
-    encoded = quote_plus(clean_address)
-    realestate_url = f"https://www.realestate.com.au/buy/?q={encoded}"
-    domain_url = f"https://www.domain.com.au/sale/?q={encoded}"
-    landata_url = f"https://www.landata.vic.gov.au/?q={encoded}"
+    # Dynamic URLs
+    realestate_url = f"https://www.realestate.com.au/buy/?q={encoded}" if encoded else "https://www.realestate.com.au/"
+    domain_url = f"https://www.domain.com.au/sale/?q={encoded}" if encoded else "https://www.domain.com.au/"
+    vicplan_url = f"https://mapshare.vic.gov.au/vicplan/?x={lon}&y={lat}&z=19" if lat and lon else "https://mapshare.vic.gov.au/vicplan/"
+    landata_url = f"https://www.landata.vic.gov.au/?q={encoded}" if encoded else "https://www.landata.vic.gov.au/"
 
     col1, col2, col3 = st.columns(3)
     with col1:
+        st.link_button("🌐 Open Planning Framework (VPP)", "https://planning-schemes.app.planning.vic.gov.au/VPPS/clauses", use_container_width=True)
+        st.link_button("🗺️ Open VicPlan Interactive Map", vicplan_url, use_container_width=True)
         st.link_button("🏘️ Open on realestate.com.au", realestate_url, use_container_width=True)
         st.link_button("🛠️ Open BYDA (Before You Dig)", "https://www.byda.com.au/", use_container_width=True)
-        st.link_button("📋 Consumer VIC Due Diligence", "https://www.consumer.vic.gov.au/due-diligence-checklist", use_container_width=True)
     with col2:
+        st.link_button("⚖️ Open Clause 5.24 (Planning)", "https://planning-schemes.app.planning.vic.gov.au/VPPS/clauses", use_container_width=True)
+        st.link_button("📜 Open Landata Title Search", "https://www.landata.online/", use_container_width=True)
         st.link_button("🏡 Open on domain.com.au", domain_url, use_container_width=True)
         st.link_button("🏘️ Open HousingHub", "https://www.housinghub.org.au/", use_container_width=True)
-        st.link_button("🔗 Google Search Link 1", "https://www.google.com/", use_container_width=True)
     with col3:
-        st.link_button("📜 Open land.vic.gov.au Title Search", landata_url, use_container_width=True)
+        st.link_button("🏛️ Clause 5.24 Dept Guidance", "https://www.planning.vic.gov.au/", use_container_width=True)
+        st.link_button("📋 Consumer VIC Due Diligence", "https://www.consumer.vic.gov.au/housing/buying-and-selling-property/checklists/due-diligence", use_container_width=True)
         st.link_button("📈 OpenAgent Property Reports", "https://www.openagent.com.au/", use_container_width=True)
         st.link_button("📰 Smart Property Investment", "https://www.smartpropertyinvestment.com.au/", use_container_width=True)
 

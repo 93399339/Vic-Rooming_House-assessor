@@ -242,8 +242,8 @@ def load_portfolio_analytics_data():
 # Left sidebar filter panel
 with st.sidebar:
     st.sidebar.markdown(
-        '<a href="https://peppy-churros-175700.netlify.app/" target="_top" style="text-decoration: none;">'
-        '<button style="width: 100%; cursor: pointer; background: #334155; color: white; padding: 10px; border-radius: 8px; border: none; margin-bottom: 15px; font-weight: bold;">⬅️ Return to Control Centre</button>'
+        '<a href="https://peppy-churros-175700.netlify.app/" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">'
+        '<div style="width: 100%; text-align: center; cursor: pointer; background: #334155; color: white; padding: 10px; border-radius: 8px; border: none; margin-bottom: 15px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">⬅️ Return to Control Centre</div>'
         '</a>',
         unsafe_allow_html=True,
     )
@@ -565,7 +565,7 @@ if st.session_state.last_coords:
     has_overlay = assessment_data.get('has_overlay', False)
 
     try:
-        zoom_start = 18 if st.session_state.deep_link_applied_address else 16
+        zoom_start = 20 if st.session_state.deep_link_applied_address else 18
         m, poi_data = create_advanced_map(
             latitude=lat,
             longitude=lon,
@@ -740,26 +740,27 @@ if render_intelligence_panel():
                     use_container_width=True,
                     key="download_report_card_btn",
                 )
-            with st.expander("Open Research Links & Actions", expanded=False):
-                render_external_research_command_center(property_data.get('address', st.session_state.last_address))
 
-    # Render all intelligence cards in a seamless 3-column grid
-    render_card_grid(
-        [
-            render_snapshot_card,
-            render_yield_card,
-            render_planning_card,
-            render_design_card,
-            render_scores_card,
-            render_actions_card,
-        ],
-        cards_per_row=3,
-    )
+    # Tightly packed, permanently visible 3-column grid
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        render_snapshot_card()
+        render_design_card()
+    with col2:
+        render_yield_card()
+        render_scores_card()
+    with col3:
+        render_planning_card()
+        render_actions_card() # Generate Report button is now always visible here
 
     st.divider()
 
-    # Render the command center full-width, permanently visible
-    render_external_research_command_center(property_data.get('address', st.session_state.last_address))
+    # Render Research Command Center full-width, passing lat/lon for accurate map links
+    render_external_research_command_center(
+        property_data.get('address', st.session_state.last_address),
+        property_data.get('latitude'),
+        property_data.get('longitude')
+    )
 
 else:
     st.info("Select a site to view intelligence panels.")
