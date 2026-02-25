@@ -17,7 +17,6 @@ Behavior:
 - Returns a dict of auto-filled assessment fields that `app.py` can merge into its form
 """
 
-from geopy.geocoders import Nominatim
 from typing import Dict, Any, Tuple, Optional
 import time
 import json
@@ -30,6 +29,7 @@ from rooming_house_standards import evaluate_rooming_house_compliance
 from standard_rooming_house_design import evaluate_site_suitability_for_design
 from haversine import haversine
 from core.vicgis_wfs_lookup import query_parcel_at_point
+from config import get_maps_api_key
 
 # ============================================================================
 # PROPERTY DATA CACHING
@@ -397,13 +397,57 @@ def _estimate_by_location_tier(lat: float, lon: float) -> Dict[str, float]:
 # ============================================================================
 
 def geocode_address(address: str) -> Tuple[Optional[float], Optional[float]]:
-    geocoder = Nominatim(user_agent="vic_rooming_house_assessor_datafetcher")
+    def _geocode_with_google_maps(query: str) -> Tuple[Optional[float], Optional[float]]:
+        api_key = get_maps_api_key()
+        if not api_key:
+            return None, None
+
+        try:
+            response = requests.get(
+                "https://maps.googleapis.com/maps/api/geocode/json",
+                params={
+                    "address": query,
+                    "components": "country:AU",
+                    "key": api_key,
+                },
+                timeout=10,
+            )
+            if response.status_code != 200:
+                return None, None
+
+            payload = response.json()
+            if payload.get("status") != "OK" or not payload.get("results"):
+                return None, None
+
+            location = payload["results"][0].get("geometry", {}).get("location", {})
+            lat = location.get("lat")
+            lon = location.get("lng")
+            if lat is None or lon is None:
+                return None, None
+
+            return float(lat), float(lon)
+        except Exception:
+            return None, None
+
+    def _street_suburb_fallback_query(full_address: str) -> str:
+        parts = [p.strip() for p in (full_address or "").split(",") if p.strip()]
+        if len(parts) >= 2:
+            return f"{parts[0]}, {parts[1]}, VIC, Australia"
+        return full_address
+
     try:
-        loc = geocoder.geocode(address, timeout=10)
-        if loc:
-            return loc.latitude, loc.longitude
+        lat, lon = _geocode_with_google_maps(address)
+        if lat is not None and lon is not None:
+            return lat, lon
+
+        fallback_query = _street_suburb_fallback_query(address)
+        if fallback_query and fallback_query != address:
+            lat, lon = _geocode_with_google_maps(fallback_query)
+            if lat is not None and lon is not None:
+                return lat, lon
     except Exception:
         return None, None
+
     return None, None
 
 # ============================================================================

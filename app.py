@@ -422,11 +422,14 @@ if (search_btn and search_address) or auto_trigger_search:
                 if 'zone_type' not in assessment_data or not assessment_data['zone_type']:
                     assessment_data['zone_type'] = 'General Residential Zone'
                 if 'lot_width' not in assessment_data or assessment_data['lot_width'] == 0:
-                    assessment_data['lot_width'] = 15.24
+                    assessment_data['lot_width'] = 12.44
                 if 'lot_depth' not in assessment_data or assessment_data['lot_depth'] == 0:
-                    assessment_data['lot_depth'] = 30.48
+                    assessment_data['lot_depth'] = 25.6
                 if 'lot_area' not in assessment_data or assessment_data['lot_area'] == 0:
-                    assessment_data['lot_area'] = assessment_data.get('lot_width', 15.24) * assessment_data.get('lot_depth', 30.48)
+                    assessment_data['lot_area'] = max(
+                        316.0,
+                        assessment_data.get('lot_width', 12.44) * assessment_data.get('lot_depth', 25.6)
+                    )
                 if 'has_overlay' not in assessment_data:
                     assessment_data['has_overlay'] = False
                 if 'slope' not in assessment_data:
@@ -489,7 +492,10 @@ if (search_btn and search_address) or auto_trigger_search:
                         "Confirm council development approval pathway"
                     ]
                     recommendations.extend(
-                        get_blueprint_setback_recommendations(assessment_data.get('lot_depth', 0))
+                        get_blueprint_setback_recommendations(
+                            assessment_data.get('lot_depth', 0),
+                            project_type=assessment_data.get('project_type')
+                        )
                     )
                     reg = assessment_data.get('regulatory_findings')
                     if reg and not reg.get('overall_compliant', True):
