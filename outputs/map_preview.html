@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_7407e09468609c1cb038a1fc7ce05bb4 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_7407e09468609c1cb038a1fc7ce05bb4" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_7407e09468609c1cb038a1fc7ce05bb4 = L.map(
+                "map_7407e09468609c1cb038a1fc7ce05bb4",
+                {
+                    center: [-37.8136, 144.9631],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 16,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_56198e70513ee51bd64e0b6c08fce652 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_56198e70513ee51bd64e0b6c08fce652.addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+            var tile_layer_d7cf60af6fdb3b56e4eb4d630691ab3d = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_d7cf60af6fdb3b56e4eb4d630691ab3d.addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+            var tile_layer_8b087897b73323c01febb05b6447d352 = L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Esri",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_8b087897b73323c01febb05b6447d352.addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+            var tile_layer_25f8df3b85dbf0678f34c56807a8955c = L.tileLayer(
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+                {
+  "minZoom": 0,
+  "maxZoom": 18,
+  "maxNativeZoom": 18,
+  "noWrap": false,
+  "attribution": "Esri",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_25f8df3b85dbf0678f34c56807a8955c.addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+            var circle_e954f3ba976df9a7e2ce06b0ce6f0f78 = L.circle(
+                [-37.8136, 144.9631],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.12, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 800, "stroke": true, "weight": 2}
+            ).addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+        var popup_74ec97779b9305476da183e395efac0b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0df6e780512dc103bdac75ad76a5437f = $(`<div id="html_0df6e780512dc103bdac75ad76a5437f" style="width: 100.0%; height: 100.0%;">800m Transport/Activity Centre Catchment</div>`)[0];
+                popup_74ec97779b9305476da183e395efac0b.setContent(html_0df6e780512dc103bdac75ad76a5437f);
+            
+        
+
+        circle_e954f3ba976df9a7e2ce06b0ce6f0f78.bindPopup(popup_74ec97779b9305476da183e395efac0b)
+        ;
+
+        
+    
+    
+            var circle_f2bb43365b4f757c047f7352c8443100 = L.circle(
+                [-37.8136, 144.9631],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": "5, 5", "dashOffset": null, "fill": false, "fillColor": "purple", "fillOpacity": 0.05, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 1000, "stroke": true, "weight": 1}
+            ).addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+        var popup_b9b2897126dd1dcfc979820d11103a5f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9cf269dd749d407327313a106ef47ef9 = $(`<div id="html_9cf269dd749d407327313a106ef47ef9" style="width: 100.0%; height: 100.0%;">1km Amenity Radius</div>`)[0];
+                popup_b9b2897126dd1dcfc979820d11103a5f.setContent(html_9cf269dd749d407327313a106ef47ef9);
+            
+        
+
+        circle_f2bb43365b4f757c047f7352c8443100.bindPopup(popup_b9b2897126dd1dcfc979820d11103a5f)
+        ;
+
+        
+    
+    
+            var marker_878a729771a18c860f93d6a63580f098 = L.marker(
+                [-37.8136, 144.9631],
+                {
+  "name": "Assessment Site",
+}
+            ).addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+            var icon_de2129d93ff53a79f91687d8ead6aad2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a69d17074208188837d372f780d1ea3d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7f01925994c5b24c50e6d794e00ab053 = $(`<div id="html_7f01925994c5b24c50e6d794e00ab053" style="width: 100.0%; height: 100.0%;"><b>Melbourne CBD, VIC</b><br/>Assessment Site</div>`)[0];
+                popup_a69d17074208188837d372f780d1ea3d.setContent(html_7f01925994c5b24c50e6d794e00ab053);
+            
+        
+
+        marker_878a729771a18c860f93d6a63580f098.bindPopup(popup_a69d17074208188837d372f780d1ea3d)
+        ;
+
+        
+    
+    
+            marker_878a729771a18c860f93d6a63580f098.bindTooltip(
+                `<div>
+                     Assessment Site
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_878a729771a18c860f93d6a63580f098.setIcon(icon_de2129d93ff53a79f91687d8ead6aad2);
+            
+    
+            var marker_b17ff0dfb17a353db88dac371c33db11 = L.marker(
+                [-37.8136, 144.9631],
+                {
+}
+            ).addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+            var div_icon_43823d85f305f86cada32f640bf5dc74 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:12px;color:#333;background:rgba(255,255,255,0.8);padding:4px;border-radius:4px;border:1px solid #ccc\u0027\u003eGeneral Residential Zone (GRZ)\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+            marker_b17ff0dfb17a353db88dac371c33db11.bindTooltip(
+                `<div>
+                     Zone: General Residential Zone (GRZ)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b17ff0dfb17a353db88dac371c33db11.setIcon(div_icon_43823d85f305f86cada32f640bf5dc74);
+            
+    
+            var feature_group_0df62bb8a4e920b07f8b4729cdc96678 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_d68159f0c9dc6f20515fefa79068db55 = L.circleMarker(
+                [-37.8183, 144.9671],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(feature_group_0df62bb8a4e920b07f8b4729cdc96678);
+        
+    
+        var popup_1f6bc78f04404efa038380ca43ac6cf6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_15db480151ea54ec12b30ad85bf35dae = $(`<div id="html_15db480151ea54ec12b30ad85bf35dae" style="width: 100.0%; height: 100.0%;"><b>Flinders Street Station</b><br/>Distance: 629m</div>`)[0];
+                popup_1f6bc78f04404efa038380ca43ac6cf6.setContent(html_15db480151ea54ec12b30ad85bf35dae);
+            
+        
+
+        circle_marker_d68159f0c9dc6f20515fefa79068db55.bindPopup(popup_1f6bc78f04404efa038380ca43ac6cf6)
+        ;
+
+        
+    
+    
+            var circle_marker_0d8e8f3ffdd764f2d673d5d4cf2ac754 = L.circleMarker(
+                [-37.8105, 144.9658],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(feature_group_0df62bb8a4e920b07f8b4729cdc96678);
+        
+    
+        var popup_5db7e2c1f22d82fa51a786c6a2f3cdff = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f3d140a7bceb61358fc6dadd53354658 = $(`<div id="html_f3d140a7bceb61358fc6dadd53354658" style="width: 100.0%; height: 100.0%;"><b>Melbourne Central Station</b><br/>Distance: 418m</div>`)[0];
+                popup_5db7e2c1f22d82fa51a786c6a2f3cdff.setContent(html_f3d140a7bceb61358fc6dadd53354658);
+            
+        
+
+        circle_marker_0d8e8f3ffdd764f2d673d5d4cf2ac754.bindPopup(popup_5db7e2c1f22d82fa51a786c6a2f3cdff)
+        ;
+
+        
+    
+    
+            feature_group_0df62bb8a4e920b07f8b4729cdc96678.addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+            var feature_group_ac0ea1337a670c782310485144f748be = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_ce560e0e682641e1c05974751df69072 = L.circleMarker(
+                [-37.822, 144.9616],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(feature_group_ac0ea1337a670c782310485144f748be);
+        
+    
+        var popup_6937ae7d2a49fc595b4c522d2727cef6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9845377ef4cdedcf9ee7aefd576dffdd = $(`<div id="html_9845377ef4cdedcf9ee7aefd576dffdd" style="width: 100.0%; height: 100.0%;"><b>Melbourne High School</b><br/>Distance: 943m</div>`)[0];
+                popup_6937ae7d2a49fc595b4c522d2727cef6.setContent(html_9845377ef4cdedcf9ee7aefd576dffdd);
+            
+        
+
+        circle_marker_ce560e0e682641e1c05974751df69072.bindPopup(popup_6937ae7d2a49fc595b4c522d2727cef6)
+        ;
+
+        
+    
+    
+            var circle_marker_c3cb0c44f6bb283ff66b0ba33e81bb33 = L.circleMarker(
+                [-37.8079, 144.9631],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 1}
+            ).addTo(feature_group_ac0ea1337a670c782310485144f748be);
+        
+    
+        var popup_4de9d9c49207db75db798b75931913b3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cbe91c5669894e84d0c1cc89a4e1d0d9 = $(`<div id="html_cbe91c5669894e84d0c1cc89a4e1d0d9" style="width: 100.0%; height: 100.0%;"><b>RMIT University</b><br/>Distance: 633m</div>`)[0];
+                popup_4de9d9c49207db75db798b75931913b3.setContent(html_cbe91c5669894e84d0c1cc89a4e1d0d9);
+            
+        
+
+        circle_marker_c3cb0c44f6bb283ff66b0ba33e81bb33.bindPopup(popup_4de9d9c49207db75db798b75931913b3)
+        ;
+
+        
+    
+    
+            feature_group_ac0ea1337a670c782310485144f748be.addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+            var feature_group_7a7118268ef73dbf86e99bf53825b0bb = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_141bbea6748700060885334e4307ea52 = L.circleMarker(
+                [-37.811, 144.9536],
+                {"bubblingMouseEvents": true, "color": "darkgreen", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightgreen", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 1}
+            ).addTo(feature_group_7a7118268ef73dbf86e99bf53825b0bb);
+        
+    
+        var popup_bba37d63fb628ca424c0a8b30d96fb76 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_59313e4db259e81c27b99ae7da45b69d = $(`<div id="html_59313e4db259e81c27b99ae7da45b69d" style="width: 100.0%; height: 100.0%;"><b>Flagstaff Gardens</b><br/>Distance: 883m</div>`)[0];
+                popup_bba37d63fb628ca424c0a8b30d96fb76.setContent(html_59313e4db259e81c27b99ae7da45b69d);
+            
+        
+
+        circle_marker_141bbea6748700060885334e4307ea52.bindPopup(popup_bba37d63fb628ca424c0a8b30d96fb76)
+        ;
+
+        
+    
+    
+            feature_group_7a7118268ef73dbf86e99bf53825b0bb.addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+            var feature_group_0a62053ce93ea39bcd619100449cb48f = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_67dfe6fda3caac98a55062a1766518b0 = L.circleMarker(
+                [-37.8132, 144.9646],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 1}
+            ).addTo(feature_group_0a62053ce93ea39bcd619100449cb48f);
+        
+    
+        var popup_82e6af24e84c67befd4aa297a8342146 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1a2e77c28bb8dbb75922603ad7395946 = $(`<div id="html_1a2e77c28bb8dbb75922603ad7395946" style="width: 100.0%; height: 100.0%;"><b>Bourke Street Mall</b><br/>Distance: 139m</div>`)[0];
+                popup_82e6af24e84c67befd4aa297a8342146.setContent(html_1a2e77c28bb8dbb75922603ad7395946);
+            
+        
+
+        circle_marker_67dfe6fda3caac98a55062a1766518b0.bindPopup(popup_82e6af24e84c67befd4aa297a8342146)
+        ;
+
+        
+    
+    
+            feature_group_0a62053ce93ea39bcd619100449cb48f.addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+            var feature_group_338fd21f2e115e3f6240a0c35b84f5c4 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var feature_group_3eb364671e3036ce18b8083f4ba5984a = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_28f321c483e2434d6ca536dbaa97ec33 = L.circleMarker(
+                [-37.8128, 144.96359999999999],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1}
+            ).addTo(feature_group_3eb364671e3036ce18b8083f4ba5984a);
+        
+    
+        var popup_d85e6bd8a90f963d5c9b647368e0ef91 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_621ee2abf3e4ae235877b01617f77a93 = $(`<div id="html_621ee2abf3e4ae235877b01617f77a93" style="width: 100.0%; height: 100.0%;"><b>Hospital: Community Hospital</b><br/>Distance: 99m</div>`)[0];
+                popup_d85e6bd8a90f963d5c9b647368e0ef91.setContent(html_621ee2abf3e4ae235877b01617f77a93);
+            
+        
+
+        circle_marker_28f321c483e2434d6ca536dbaa97ec33.bindPopup(popup_d85e6bd8a90f963d5c9b647368e0ef91)
+        ;
+
+        
+    
+    
+            var circle_marker_efe34869ed325cc4559251791b722a07 = L.circleMarker(
+                [-37.8142, 144.964],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1}
+            ).addTo(feature_group_3eb364671e3036ce18b8083f4ba5984a);
+        
+    
+        var popup_1cf14a8ecd39e44139a12fca0c168719 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cbf981095a64cae1574544fc262a5b19 = $(`<div id="html_cbf981095a64cae1574544fc262a5b19" style="width: 100.0%; height: 100.0%;"><b>Hospital: Health Clinic</b><br/>Distance: 103m</div>`)[0];
+                popup_1cf14a8ecd39e44139a12fca0c168719.setContent(html_cbf981095a64cae1574544fc262a5b19);
+            
+        
+
+        circle_marker_efe34869ed325cc4559251791b722a07.bindPopup(popup_1cf14a8ecd39e44139a12fca0c168719)
+        ;
+
+        
+    
+    
+            var circle_marker_9024dd6b2af27a14b085568ccf7d23eb = L.circleMarker(
+                [-37.8132, 144.9624],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "purple", "fillOpacity": 0.9, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 1}
+            ).addTo(feature_group_3eb364671e3036ce18b8083f4ba5984a);
+        
+    
+        var popup_38bc55f2182e98fc933d98377a084606 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_742aa78fb958567396ced40e61556fd1 = $(`<div id="html_742aa78fb958567396ced40e61556fd1" style="width: 100.0%; height: 100.0%;"><b>Hospital: Emergency Centre</b><br/>Distance: 75m</div>`)[0];
+                popup_38bc55f2182e98fc933d98377a084606.setContent(html_742aa78fb958567396ced40e61556fd1);
+            
+        
+
+        circle_marker_9024dd6b2af27a14b085568ccf7d23eb.bindPopup(popup_38bc55f2182e98fc933d98377a084606)
+        ;
+
+        
+    
+    
+            feature_group_3eb364671e3036ce18b8083f4ba5984a.addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+            var circle_0dc29971e25905550f8a25e36834e121 = L.circle(
+                [-37.8136, 144.9631],
+                {"bubblingMouseEvents": true, "color": "#FF6B35", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6B35", "fillOpacity": 0.12, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2000, "stroke": true, "weight": 2}
+            ).addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+        var popup_91ef2d65c4516a1643c4c086e0404829 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_db8e9bd30c419a61f63c1a10baceb7f2 = $(`<div id="html_db8e9bd30c419a61f63c1a10baceb7f2" style="width: 100.0%; height: 100.0%;"><b>Melbourne CBD</b><br/>Principal Activity Centre<br/>Distance: 0.0km</div>`)[0];
+                popup_91ef2d65c4516a1643c4c086e0404829.setContent(html_db8e9bd30c419a61f63c1a10baceb7f2);
+            
+        
+
+        circle_0dc29971e25905550f8a25e36834e121.bindPopup(popup_91ef2d65c4516a1643c4c086e0404829)
+        ;
+
+        
+    
+    
+            var marker_6fc4dada7df330a8ea0eca11f035cca6 = L.marker(
+                [-37.8136, 144.9631],
+                {
+  "name": "Activity Centres",
+}
+            ).addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+            var icon_84c88516852ef74b86767250e7536dd9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "shopping-cart",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0c1389d7a57dfb48928324adf5e2e2a3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2f34ac32281d23f267553cf95d7f4102 = $(`<div id="html_2f34ac32281d23f267553cf95d7f4102" style="width: 100.0%; height: 100.0%;"><b>Melbourne CBD</b><br/>Principal Activity Centre<br/>Distance: 0.0km</div>`)[0];
+                popup_0c1389d7a57dfb48928324adf5e2e2a3.setContent(html_2f34ac32281d23f267553cf95d7f4102);
+            
+        
+
+        marker_6fc4dada7df330a8ea0eca11f035cca6.bindPopup(popup_0c1389d7a57dfb48928324adf5e2e2a3)
+        ;
+
+        
+    
+    
+            marker_6fc4dada7df330a8ea0eca11f035cca6.bindTooltip(
+                `<div>
+                     Melbourne CBD - Principal Activity Centre
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6fc4dada7df330a8ea0eca11f035cca6.setIcon(icon_84c88516852ef74b86767250e7536dd9);
+            
+    
+            var circle_3d5da623523625fa3ad9987f6850864f = L.circle(
+                [-37.8201, 144.9518],
+                {"bubblingMouseEvents": true, "color": "#FF6B35", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6B35", "fillOpacity": 0.12, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 1500, "stroke": true, "weight": 2}
+            ).addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+        var popup_41f3f55ecba13b327b0f0c5445db7033 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4ec03e4e4f34e4e538d5f3c37a3a4b4e = $(`<div id="html_4ec03e4e4f34e4e538d5f3c37a3a4b4e" style="width: 100.0%; height: 100.0%;"><b>Docklands</b><br/>Principal Activity Centre<br/>Distance: 1.2km</div>`)[0];
+                popup_41f3f55ecba13b327b0f0c5445db7033.setContent(html_4ec03e4e4f34e4e538d5f3c37a3a4b4e);
+            
+        
+
+        circle_3d5da623523625fa3ad9987f6850864f.bindPopup(popup_41f3f55ecba13b327b0f0c5445db7033)
+        ;
+
+        
+    
+    
+            var marker_6638b0927efc613a6524cddbb50a7fa2 = L.marker(
+                [-37.8201, 144.9518],
+                {
+  "name": "Activity Centres",
+}
+            ).addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+            var icon_4b8692f4230a40d76b03d7ba2f90a725 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "shopping-cart",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2c274fa37d545ee9016bdab857740ff5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8c969e2560e8b4495f33a279c621356d = $(`<div id="html_8c969e2560e8b4495f33a279c621356d" style="width: 100.0%; height: 100.0%;"><b>Docklands</b><br/>Principal Activity Centre<br/>Distance: 1.2km</div>`)[0];
+                popup_2c274fa37d545ee9016bdab857740ff5.setContent(html_8c969e2560e8b4495f33a279c621356d);
+            
+        
+
+        marker_6638b0927efc613a6524cddbb50a7fa2.bindPopup(popup_2c274fa37d545ee9016bdab857740ff5)
+        ;
+
+        
+    
+    
+            marker_6638b0927efc613a6524cddbb50a7fa2.bindTooltip(
+                `<div>
+                     Docklands - Principal Activity Centre
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6638b0927efc613a6524cddbb50a7fa2.setIcon(icon_4b8692f4230a40d76b03d7ba2f90a725);
+            
+    
+            var circle_9de1e4067c8d5ce93411cac68f5e2e96 = L.circle(
+                [-37.8272, 144.9675],
+                {"bubblingMouseEvents": true, "color": "#FF6B35", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#FF6B35", "fillOpacity": 0.12, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 1500, "stroke": true, "weight": 2}
+            ).addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+        var popup_eb202457ee7bd77f7295196646440c84 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_3a8daa8a1f994f4a2fd0f0c75c026954 = $(`<div id="html_3a8daa8a1f994f4a2fd0f0c75c026954" style="width: 100.0%; height: 100.0%;"><b>Southbank</b><br/>Principal Activity Centre<br/>Distance: 1.6km</div>`)[0];
+                popup_eb202457ee7bd77f7295196646440c84.setContent(html_3a8daa8a1f994f4a2fd0f0c75c026954);
+            
+        
+
+        circle_9de1e4067c8d5ce93411cac68f5e2e96.bindPopup(popup_eb202457ee7bd77f7295196646440c84)
+        ;
+
+        
+    
+    
+            var marker_3ac6b55e5cc54f185d02dffb3c62aea5 = L.marker(
+                [-37.8272, 144.9675],
+                {
+  "name": "Activity Centres",
+}
+            ).addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+            var icon_9476a62e0850cb977df2ca1aa9364ba2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "shopping-cart",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d31fba26a6a3ecb039f02f4a617a7e54 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5dd409d2f391e8799c840d50e66a9d7d = $(`<div id="html_5dd409d2f391e8799c840d50e66a9d7d" style="width: 100.0%; height: 100.0%;"><b>Southbank</b><br/>Principal Activity Centre<br/>Distance: 1.6km</div>`)[0];
+                popup_d31fba26a6a3ecb039f02f4a617a7e54.setContent(html_5dd409d2f391e8799c840d50e66a9d7d);
+            
+        
+
+        marker_3ac6b55e5cc54f185d02dffb3c62aea5.bindPopup(popup_d31fba26a6a3ecb039f02f4a617a7e54)
+        ;
+
+        
+    
+    
+            marker_3ac6b55e5cc54f185d02dffb3c62aea5.bindTooltip(
+                `<div>
+                     Southbank - Principal Activity Centre
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3ac6b55e5cc54f185d02dffb3c62aea5.setIcon(icon_9476a62e0850cb977df2ca1aa9364ba2);
+            
+    
+            var circle_b11095e300e0741331048b29e4ed9a60 = L.circle(
+                [-37.8136, 144.9631],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": "2, 8", "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 1500, "stroke": true, "weight": 2}
+            ).addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+        
+    
+        var popup_b03cf7dacfb7967ea2fad0ec780ef63d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_7d3d5cef32cb480bfe66dce9d64dc480 = $(`<div id="html_7d3d5cef32cb480bfe66dce9d64dc480" style="width: 100.0%; height: 100.0%;">1.5km Transport-Oriented Development Zone</div>`)[0];
+                popup_b03cf7dacfb7967ea2fad0ec780ef63d.setContent(html_7d3d5cef32cb480bfe66dce9d64dc480);
+            
+        
+
+        circle_b11095e300e0741331048b29e4ed9a60.bindPopup(popup_b03cf7dacfb7967ea2fad0ec780ef63d)
+        ;
+
+        
+    
+    
+            var layer_control_1660e3add9ef16f51d7d72c044f2f57a_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_56198e70513ee51bd64e0b6c08fce652,
+                    "Street Map" : tile_layer_d7cf60af6fdb3b56e4eb4d630691ab3d,
+                    "Satellite View" : tile_layer_8b087897b73323c01febb05b6447d352,
+                    "Terrain" : tile_layer_25f8df3b85dbf0678f34c56807a8955c,
+                },
+                overlays :  {
+                    "Transit Stops" : feature_group_0df62bb8a4e920b07f8b4729cdc96678,
+                    "Schools" : feature_group_ac0ea1337a670c782310485144f748be,
+                    "Parks" : feature_group_7a7118268ef73dbf86e99bf53825b0bb,
+                    "Shops \u0026 Amenities" : feature_group_0a62053ce93ea39bcd619100449cb48f,
+                    "Heritage Sites" : feature_group_338fd21f2e115e3f6240a0c35b84f5c4,
+                    "Hospitals" : feature_group_3eb364671e3036ce18b8083f4ba5984a,
+                },
+            };
+            let layer_control_1660e3add9ef16f51d7d72c044f2f57a = L.control.layers(
+                layer_control_1660e3add9ef16f51d7d72c044f2f57a_layers.base_layers,
+                layer_control_1660e3add9ef16f51d7d72c044f2f57a_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_7407e09468609c1cb038a1fc7ce05bb4);
+
+        
+</script>
+</html>

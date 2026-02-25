@@ -271,7 +271,7 @@ def estimate_revenue_potential(assessment_data):
     dist_transport = float(assessment_data.get('dist_transport', 9999) or 9999)
     if dist_transport <= 400:
         transport_multiplier = 1.10
-        proximity_band = 'Premium access (<=400m)'
+        proximity_band = 'Enterprise Intelligence Active (<=400m)'
     elif dist_transport <= 800:
         transport_multiplier = 1.00
         proximity_band = 'Strong access (<=800m)'

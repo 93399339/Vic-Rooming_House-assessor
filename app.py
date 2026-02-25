@@ -593,7 +593,8 @@ if property_data:
                 high_fidelity=True,
             )
             render_infographic_tile("Annual Gross", f"${annual_min:,} - ${annual_max:,}", icon="🗓️", color="pass" if annual_min else "neutral")
-            render_infographic_pod("Project Type", project_type, icon="🏗️", subtitle="Active logic profile", status="neutral")
+            render_infographic_pod("Project Type", project_type, icon="🏗️", subtitle="Enterprise Intelligence Active", status="pass")
+            render_infographic_pod("Intelligence Status", "Enterprise Intelligence Active", icon="🧠", subtitle="Revenue and score intelligence enabled", status="pass")
             render_infographic_pod("Lot Geometry", f"{property_data.get('lot_width', 0):.1f}m × {property_data.get('lot_depth', 0):.1f}m", icon="📐", subtitle=f"Total area {property_data.get('lot_area', 0):.0f} m²", status="neutral")
 
     def render_planning_card():

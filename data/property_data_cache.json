@@ -1,0 +1,333 @@
+{
+  "146A_manchester_rd_mooroolbark": {
+    "timestamp": 1739739600,
+    "data": {
+      "address": "146A Manchester Rd, Mooroolbark VIC 3138",
+      "latitude": -37.791,
+      "longitude": 145.2734,
+      "zone_type": "General Residential Zone",
+      "lot_width": 18.5,
+      "lot_depth": 35.2,
+      "lot_area": 650.2,
+      "overlays": [],
+      "is_transport_compliant": false,
+      "dist_transport": 1850
+    }
+  },
+  "-37.7783,145.3128": {
+    "timestamp": 1771314061,
+    "data": {
+      "address": "146A Manchester Rd, Mooroolbark VIC 3138",
+      "latitude": -37.7782936,
+      "longitude": 145.3128038,
+      "amenities_summary": {
+        "transit": [
+          {
+            "name": "Main St Station",
+            "lat": -37.7774936,
+            "lon": 145.3133038,
+            "distance_m": 99,
+            "type": "transit"
+          },
+          {
+            "name": "Central Bus Stop",
+            "lat": -37.778893599999996,
+            "lon": 145.3137038,
+            "distance_m": 103,
+            "type": "transit"
+          },
+          {
+            "name": "Local Platform",
+            "lat": -37.7778936,
+            "lon": 145.31210380000002,
+            "distance_m": 75,
+            "type": "transit"
+          }
+        ],
+        "schools": [
+          {
+            "name": "Primary School",
+            "lat": -37.7774936,
+            "lon": 145.3133038,
+            "distance_m": 99,
+            "type": "schools"
+          },
+          {
+            "name": "High School",
+            "lat": -37.778893599999996,
+            "lon": 145.3137038,
+            "distance_m": 103,
+            "type": "schools"
+          },
+          {
+            "name": "Community College",
+            "lat": -37.7778936,
+            "lon": 145.31210380000002,
+            "distance_m": 75,
+            "type": "schools"
+          }
+        ],
+        "parks": [
+          {
+            "name": "Local Park",
+            "lat": -37.7774936,
+            "lon": 145.3133038,
+            "distance_m": 99,
+            "type": "parks"
+          },
+          {
+            "name": "Neighbourhood Reserve",
+            "lat": -37.778893599999996,
+            "lon": 145.3137038,
+            "distance_m": 103,
+            "type": "parks"
+          },
+          {
+            "name": "Playground",
+            "lat": -37.7778936,
+            "lon": 145.31210380000002,
+            "distance_m": 75,
+            "type": "parks"
+          }
+        ],
+        "shops": [
+          {
+            "name": "Supermarket",
+            "lat": -37.7774936,
+            "lon": 145.3133038,
+            "distance_m": 99,
+            "type": "shops"
+          },
+          {
+            "name": "Corner Store",
+            "lat": -37.778893599999996,
+            "lon": 145.3137038,
+            "distance_m": 103,
+            "type": "shops"
+          },
+          {
+            "name": "Pharmacy",
+            "lat": -37.7778936,
+            "lon": 145.31210380000002,
+            "distance_m": 75,
+            "type": "shops"
+          }
+        ]
+      },
+      "dist_transport": 75,
+      "nearest_activity_centre": null,
+      "zone_type": "Neighbourhood Residential Zone",
+      "overlays": [],
+      "lot_width": 23.0,
+      "lot_depth": 21.4,
+      "lot_area": 491.3,
+      "land_estimate_method": "cadastral",
+      "is_transport_compliant": true,
+      "is_preferred_zone": true,
+      "is_width_compliant": true,
+      "is_area_compliant": true,
+      "check_heating": 1,
+      "check_windows": 1,
+      "check_energy": 1
+    }
+  },
+  "-37.5896,144.7575": {
+    "timestamp": 1771855108.9886725,
+    "data": {
+      "address": "32 Runnel Street Sunbury",
+      "latitude": -37.5896451,
+      "longitude": 144.7574973,
+      "amenities_summary": {
+        "transit": [
+          {
+            "name": "Main St Station",
+            "lat": -37.5888451,
+            "lon": 144.7579973,
+            "distance_m": 99,
+            "type": "transit"
+          },
+          {
+            "name": "Central Bus Stop",
+            "lat": -37.5902451,
+            "lon": 144.7583973,
+            "distance_m": 103,
+            "type": "transit"
+          },
+          {
+            "name": "Local Platform",
+            "lat": -37.5892451,
+            "lon": 144.75679730000002,
+            "distance_m": 76,
+            "type": "transit"
+          }
+        ],
+        "schools": [
+          {
+            "name": "Primary School",
+            "lat": -37.5888451,
+            "lon": 144.7579973,
+            "distance_m": 99,
+            "type": "schools"
+          },
+          {
+            "name": "High School",
+            "lat": -37.5902451,
+            "lon": 144.7583973,
+            "distance_m": 103,
+            "type": "schools"
+          },
+          {
+            "name": "Community College",
+            "lat": -37.5892451,
+            "lon": 144.75679730000002,
+            "distance_m": 76,
+            "type": "schools"
+          }
+        ],
+        "parks": [
+          {
+            "name": "Local Park",
+            "lat": -37.5888451,
+            "lon": 144.7579973,
+            "distance_m": 99,
+            "type": "parks"
+          },
+          {
+            "name": "Neighbourhood Reserve",
+            "lat": -37.5902451,
+            "lon": 144.7583973,
+            "distance_m": 103,
+            "type": "parks"
+          },
+          {
+            "name": "Playground",
+            "lat": -37.5892451,
+            "lon": 144.75679730000002,
+            "distance_m": 76,
+            "type": "parks"
+          }
+        ],
+        "shops": [
+          {
+            "name": "Supermarket",
+            "lat": -37.5888451,
+            "lon": 144.7579973,
+            "distance_m": 99,
+            "type": "shops"
+          },
+          {
+            "name": "Corner Store",
+            "lat": -37.5902451,
+            "lon": 144.7583973,
+            "distance_m": 103,
+            "type": "shops"
+          },
+          {
+            "name": "Pharmacy",
+            "lat": -37.5892451,
+            "lon": 144.75679730000002,
+            "distance_m": 76,
+            "type": "shops"
+          }
+        ],
+        "heritage": [
+          {
+            "name": "Historic Site",
+            "lat": -37.5888451,
+            "lon": 144.7579973,
+            "distance_m": 99,
+            "type": "heritage"
+          },
+          {
+            "name": "Heritage Building",
+            "lat": -37.5902451,
+            "lon": 144.7583973,
+            "distance_m": 103,
+            "type": "heritage"
+          },
+          {
+            "name": "Old Church",
+            "lat": -37.5892451,
+            "lon": 144.75679730000002,
+            "distance_m": 76,
+            "type": "heritage"
+          }
+        ]
+      },
+      "dist_transport": 76,
+      "nearest_activity_centre": null,
+      "zone_type": "General Residential Zone",
+      "overlays": [],
+      "lot_width": 23.0,
+      "lot_depth": 41.4,
+      "lot_area": 950.0,
+      "land_estimate_method": "location-based",
+      "design_locked": "UR Happy Home Standard Rooming House Design v1.0",
+      "bedrooms": 5,
+      "gross_floor_area": 274,
+      "persons_accommodated": 5,
+      "regulatory_findings": {
+        "standards": {
+          "max_gross_floor_area_sqm": 300.0,
+          "max_persons_accommodated": 12,
+          "max_bedrooms": 8,
+          "notes": "Exemption applies where: gross floor area \u2264 300 sqm, \u226412 persons accommodated, and \u22648 bedrooms. Other planning permit rules may still apply depending on zone and overlays. Always confirm with council and title searches."
+        },
+        "checks": {
+          "gross_floor_area_ok": true,
+          "persons_ok": true,
+          "bedrooms_ok": true
+        },
+        "overall_compliant": true,
+        "reasons": [
+          "Gross floor area 274 m\u00b2 within allowed limit.",
+          "Persons accommodated (5) within allowed maximum.",
+          "Bedrooms (5) within allowed maximum.",
+          "Site located in zone: General Residential Zone. Refer to planning scheme for permit requirements. Exemptions may apply depending on exact planning scheme clauses and overlays."
+        ],
+        "design_reference": "UR Happy Home Standard Rooming House Design v1.0",
+        "design_required_specs": {
+          "bedrooms": 5,
+          "bathrooms": 3,
+          "gross_floor_area_sqm": 274
+        },
+        "permit_note": "Site located in zone: General Residential Zone. Refer to planning scheme for permit requirements. Exemptions may apply depending on exact planning scheme clauses and overlays.",
+        "note": "All assessment results assume implementation of the UR Happy Home Standard Design (5BR, 274m\u00b2 GFA, NDIS-compliant, verified Feb 2026). Site must accommodate this design. Specific permits and conditions apply by zone."
+      },
+      "design_suitability": {
+        "design_name": "UR Happy Home Standard Rooming House Design",
+        "site_address": "32 Runnel Street Sunbury",
+        "suitability_checks": {
+          "lot_area_sufficient": true,
+          "zone_suitable": true,
+          "transport_compliant": true,
+          "planning_noted": true,
+          "title_check_required": true
+        },
+        "all_checks_pass": true,
+        "reasons": [
+          "Lot area 950 m\u00b2 sufficient for design placement.",
+          "Zone 'General Residential Zone' suitable for rooming house development.",
+          "Transport within 76m - good accessibility.",
+          "Full title search required to confirm no single-dwelling covenants or restrictions."
+        ],
+        "recommendations": [
+          "Engage town planning consultant to confirm permit pathway and conditions.",
+          "Commission geotechnical survey if slope revealed in preliminary assessment.",
+          "Obtain quantity surveyor estimate for construction costs (typically $600-800k for this design)."
+        ],
+        "permit_requirement": {
+          "required": false,
+          "reason": "Design gross floor area (274 m\u00b2) is below the 300 m\u00b2 exemption threshold \u2014 planning permit may not be required (confirm with council)."
+        }
+      },
+      "is_transport_compliant": true,
+      "is_preferred_zone": true,
+      "is_width_compliant": true,
+      "is_area_compliant": true,
+      "check_heating": 1,
+      "check_windows": 1,
+      "check_energy": 1
+    }
+  }
+}
