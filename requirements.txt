@@ -1,4 +1,13 @@
-streamlit
-pandas
-folium
-streamlit-folium
+streamlit>=1.36.0
+pandas>=2.2.0
+folium>=0.17.0
+streamlit-folium>=0.18.0
+geopy>=2.4.1
+python-dotenv>=1.0.1
+reportlab>=4.2.2
+pillow>=10.4.0
+sqlalchemy>=2.0.31
+requests>=2.32.3
+haversine>=2.8.1
+fpdf2>=2.7.9
+geopandas>=0.14.4

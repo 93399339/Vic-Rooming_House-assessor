@@ -1,0 +1,20 @@
+[theme]
+base = "dark"
+primaryColor = "#1F7F4C"
+backgroundColor = "#0F1419"
+secondaryBackgroundColor = "#252D38"
+textColor = "#E8EAED"
+font = "sans serif"
+
+[client]
+showErrorDetails = true
+showSidebarNavigation = true
+toolbarMode = "viewer"
+
+[logger]
+level = "error"
+
+# Enable advanced CSS rendering
+[server]
+headless = true
+
