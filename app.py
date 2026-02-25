@@ -608,12 +608,19 @@ if property_data:
     def render_yield_card():
         with st.container(border=True):
             st.markdown("#### 💰 Revenue & Yield")
+            weekly_midpoint = int((weekly_min + weekly_max) / 2) if (weekly_min or weekly_max) else 0
             render_infographic_tile(
                 "Revenue Estimate",
                 f"${weekly_min:,} - ${weekly_max:,} /wk",
                 icon="📅",
                 color="pass" if weekly_min else "neutral",
                 high_fidelity=True,
+            )
+            render_infographic_tile(
+                "Yield (Midpoint)",
+                f"${weekly_midpoint:,} /wk" if weekly_midpoint else "N/A",
+                icon="📊",
+                color="pass" if weekly_midpoint else "neutral",
             )
             render_infographic_tile("Annual Gross", f"${annual_min:,} - ${annual_max:,}", icon="🗓️", color="pass" if annual_min else "neutral")
             render_infographic_pod("Project Type", project_type, icon="🏗️", subtitle="Enterprise Intelligence Active", status="pass")
@@ -641,6 +648,13 @@ if property_data:
         with st.container(border=True):
             st.markdown("#### 🏗️ Design Suitability")
             design_pass = bool(design_validation.get('pass_fail'))
+            render_infographic_tile(
+                "Design Suitability",
+                "PASS" if design_pass else "REVIEW REQUIRED",
+                icon="✅" if design_pass else "⚠️",
+                color="pass" if design_pass else "warning",
+                high_fidelity=True,
+            )
             render_infographic_pod(
                 "URHH Standard Fit",
                 "PASS" if design_pass else "REVIEW REQUIRED",
@@ -716,6 +730,15 @@ if property_data:
         ],
         cards_per_row=3,
     )
+
+    st.markdown("#### Compliance")
+    with st.expander("Open Compliance Links & Actions", expanded=False):
+        render_card_grid(
+            [
+                render_actions_card,
+            ],
+            cards_per_row=3,
+        )
 
 else:
     st.info("Select a site to view intelligence panels.")
@@ -937,15 +960,6 @@ if st.session_state.get('generate_report'):
                     st.session_state.generate_report = False
                 except Exception as e:
                     st.error(f"Report generation failed: {str(e)[:100]}")
-
-# =========================================================================
-# BOTTOM COMPLIANCE LINKS (FULL-WIDTH)
-# =========================================================================
-
-if st.session_state.assessment_complete and st.session_state.property_data and 'render_actions_card' in globals():
-    st.divider()
-    st.markdown("#### Compliance Links")
-    render_actions_card()
 
 # ============================================================================
 # FOOTER - DEBUG INFO (Collapsible in development)

@@ -397,12 +397,19 @@ def _estimate_by_location_tier(lat: float, lon: float) -> Dict[str, float]:
 # ============================================================================
 
 def geocode_address(address: str) -> Tuple[Optional[float], Optional[float]]:
-    def _geocode_with_google_maps(query: str) -> Tuple[Optional[float], Optional[float]]:
-        try:
-            api_key = str(st.secrets.get("MAPS_API_KEY", "")).strip()
-        except Exception:
-            api_key = ""
+    def _wait_for_maps_api_key(max_attempts: int = 5, delay_seconds: float = 0.2) -> str:
+        for _ in range(max_attempts):
+            try:
+                api_key = str(st.secrets["MAPS_API_KEY"]).strip()
+                if api_key:
+                    return api_key
+            except Exception:
+                pass
+            time.sleep(delay_seconds)
+        return ""
 
+    def _geocode_with_google_maps(query: str) -> Tuple[Optional[float], Optional[float]]:
+        api_key = _wait_for_maps_api_key()
         if not api_key:
             return None, None
 
