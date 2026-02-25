@@ -355,11 +355,18 @@ def create_advanced_map(
         'Dark': 'CartoDB positron'
     }
     
-    # Create base map
+    # Create base map with required attribution
+    attr_map = {
+        'OpenStreetMap': '© OpenStreetMap',
+        'Satellite': 'Tiles © Esri',
+        'Terrain': 'Tiles © Esri',
+        'Dark': '© CartoDB'
+    }
     m = folium.Map(
         location=[latitude, longitude],
         zoom_start=zoom_start,
-        tiles=tiles.get(map_type, 'OpenStreetMap')
+        tiles=tiles.get(map_type, 'OpenStreetMap'),
+        attr=attr_map.get(map_type, 'Map data')
     )
     
     # Add other tile options

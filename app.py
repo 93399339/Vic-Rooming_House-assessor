@@ -242,7 +242,7 @@ def load_portfolio_analytics_data():
 # Left sidebar filter panel
 with st.sidebar:
     st.sidebar.markdown(
-        '<a href="https://peppy-churros-175700.netlify.app/" target="_self" style="text-decoration: none;">'
+        '<a href="https://peppy-churros-175700.netlify.app/" target="_top" style="text-decoration: none;">'
         '<button style="width: 100%; cursor: pointer; background: #334155; color: white; padding: 10px; border-radius: 8px; border: none; margin-bottom: 15px; font-weight: bold;">⬅️ Return to Control Centre</button>'
         '</a>',
         unsafe_allow_html=True,
@@ -743,33 +743,23 @@ if render_intelligence_panel():
             with st.expander("Open Research Links & Actions", expanded=False):
                 render_external_research_command_center(property_data.get('address', st.session_state.last_address))
 
-    st.markdown("#### Financial Potential")
+    # Render all intelligence cards in a seamless 3-column grid
     render_card_grid(
         [
             render_snapshot_card,
             render_yield_card,
-        ],
-        cards_per_row=3,
-    )
-
-    st.markdown("#### Site Constraints")
-    render_card_grid(
-        [
             render_planning_card,
             render_design_card,
             render_scores_card,
+            render_actions_card,
         ],
         cards_per_row=3,
     )
 
-    st.markdown("#### Compliance")
-    with st.expander("Open Compliance Links & Actions", expanded=False):
-        render_card_grid(
-            [
-                render_actions_card,
-            ],
-            cards_per_row=3,
-        )
+    st.divider()
+
+    # Render the command center full-width, permanently visible
+    render_external_research_command_center(property_data.get('address', st.session_state.last_address))
 
 else:
     st.info("Select a site to view intelligence panels.")

@@ -306,44 +306,19 @@ def render_external_research_command_center(address: str):
     domain_url = f"https://www.domain.com.au/sale/?q={encoded}"
     landata_url = f"https://www.landata.vic.gov.au/?q={encoded}"
 
-    st.link_button("🏘️ Open on realestate.com.au", realestate_url, use_container_width=True)
-    st.link_button("🏡 Open on domain.com.au", domain_url, use_container_width=True)
-    st.link_button("📜 Open land.vic.gov.au Title Search", landata_url, use_container_width=True)
-    st.link_button(
-        "🛠️ Open BYDA (Before You Dig Australia)",
-        "https://www.byda.com.au/?utm_source=g_ads&utm_medium=cpc&utm_format=search&utm_campaign=byda_brand&utm_client=byda_&_lual&gad_source=1&gad_campaignid=21903255529&gbraid=0AAAAAC1_t6EFjRiOz4xUPVFwGq_yvmDTj&gclid=Cj0KCQiAtfXMBhDzARIsAJ0jp3BNP7Bhk3bHY2pGKYvKmGAuZvicgxn502V5DzBaf2nBb4iWsluKsdMaAgxHEALw_wcB",
-        use_container_width=True,
-    )
-    st.link_button(
-        "🏘️ Open HousingHub",
-        "https://www.housinghub.org.au/",
-        use_container_width=True,
-    )
-    st.link_button(
-        "📈 OpenAgent Property Reports",
-        "https://www.openagent.com.au/property-reports/?ref=3&utm_source=google&utm_medium=cpc&utm_campaign=PropertyReport&matchtype=p&keyword=property%20evaluator&device=c&adposition=&network=g&creative=694686930659&cg=property-report&aceid=&campaignid=12266581576&adgroupid=160373079019&gad_source=1&gad_campaignid=12266581576&gbraid=0AAAAADtG_gSNM2-bD4I7_s0GFl_HPyjre&gclid=CjwKCAiAkvDMBhBMEiwAnUA9Be_YqCHj2rsRgEPeA1JcrF8jIZrxJ551IPOI4wllRj-M7AmHRIOs1hoCZLwQAvD_BwE",
-        use_container_width=True,
-    )
-    st.link_button(
-        "📋 Consumer VIC Due Diligence",
-        "https://www.consumer.vic.gov.au/housing/buying-and-selling-property/checklists/due-diligence",
-        use_container_width=True,
-    )
-    st.link_button(
-        "🔗 Google Link 1",
-        "https://www.google.com/aclk?sa=L&ai=DChsSEwjHsOC54_CSAxXGpWYCHeyqAZMYACICCAEQARoCc20&co=1&ase=2&gclid=CjwKCAiAkvDMBhBMEiwAnUA9BQ1vcYVBz9Z2jpOc_XJW-_Z4xkoS-V8OaRMhiRUXYp5MTMGJJbPupxoCnJkQAvD_BwE&cid=CAAS0gHkaA2bG9AnXneFD9VgrcBeFU9-47PVWdjSImUzgmRw5DY0j6AbqExdcfdbrgxa92-XtJSY_74ml2g4ALBv0cWgjy7f0okNxDIeKZtSWN0BdC3Q5t37R6rnR5SLBixvkIFI020jjR2GXSPmeF8GAHHSrfHwUI7P3Emnda9gAYbVOP-nb3h2pLWym_C5tE_wR9dVwmsvLFMXeY6NtPteQpJo3FMHGcJ9CN5TTGL-m5ve18mWsfNNZSodAGVt1zPlskkfh-BzPNXDFF5gRbAFSsjUNU0&cce=2&category=acrcp_v1_32&sig=AOD64_3Y88m2_k_pukFq66ZH9iECz6u3nw&q&nis=4&adurl&ved=2ahUKEwiantu54_CSAxVX-DgGHQ5EA68Q0Qx6BAgpEAE",
-        use_container_width=True,
-    )
-    st.link_button(
-        "🔗 Google Link 2",
-        "https://www.google.com/aclk?sa=L&ai=DChsSEwjHsOC54_CSAxXGpWYCHeyqAZMYACICCAEQAxoCc20&co=1&ase=2&gclid=CjwKCAiAkvDMBhBMEiwAnUA9BVjSd2_NVW5zBTnzs7uEWIif8jNonZHyh8etfFVhGcqUENDEbV5m2xoC8ikQAvD_BwE&cid=CAAS0gHkaA2bG9AnXneFD9VgrcBeFU9-47PVWdjSImUzgmRw5DY0j6AbqExdcfdbrgxa92-XtJSY_74ml2g4ALBv0cWgjy7f0okNxDIeKZtSWN0BdC3Q5t37R6rnR5SLBixvkIFI020jjR2GXSPmeF8GAHHSrfHwUI7P3Emnda9gAYbVOP-nb3h2pLWym_C5tE_wR9dVwmsvLFMXeY6NtPteQpJo3FMHGcJ9CN5TTGL-m5ve18mWsfNNZSodAGVt1zPlskkfh-BzPNXDFF5gRbAFSsjUNU0&cce=2&category=acrcp_v1_32&sig=AOD64_3j2pDdaJFQxIVNsne1JWvRI1xsUQ&q&nis=4&adurl&ved=2ahUKEwiantu54_CSAxVX-DgGHQ5EA68Q0Qx6BAgrEAQ",
-        use_container_width=True,
-    )
-    st.link_button(
-        "📰 Smart Property Investment Article",
-        "https://www.smartpropertyinvestment.com.au/hotspots/15930-online-tool-makes-due-diligence-easy-for-investors",
-        use_container_width=True,
-    )
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.link_button("🏘️ Open on realestate.com.au", realestate_url, use_container_width=True)
+        st.link_button("🛠️ Open BYDA (Before You Dig)", "https://www.byda.com.au/", use_container_width=True)
+        st.link_button("📋 Consumer VIC Due Diligence", "https://www.consumer.vic.gov.au/due-diligence-checklist", use_container_width=True)
+    with col2:
+        st.link_button("🏡 Open on domain.com.au", domain_url, use_container_width=True)
+        st.link_button("🏘️ Open HousingHub", "https://www.housinghub.org.au/", use_container_width=True)
+        st.link_button("🔗 Google Search Link 1", "https://www.google.com/", use_container_width=True)
+    with col3:
+        st.link_button("📜 Open land.vic.gov.au Title Search", landata_url, use_container_width=True)
+        st.link_button("📈 OpenAgent Property Reports", "https://www.openagent.com.au/", use_container_width=True)
+        st.link_button("📰 Smart Property Investment", "https://www.smartpropertyinvestment.com.au/", use_container_width=True)
 
 
 def render_infographic_pod(
