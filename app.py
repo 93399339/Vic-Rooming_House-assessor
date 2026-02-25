@@ -226,7 +226,7 @@ def load_portfolio_analytics_data():
 with st.sidebar:
     st.markdown(
         """
-        <a href="https://peppy-churros-175700.netlify.app/" target="_self" style="
+        <a href="https://peppy-churros-175700.netlify.app/" target="_blank" rel="noopener noreferrer" style="
             display:block;
             width:100%;
             text-align:center;
@@ -383,14 +383,24 @@ address_to_assess = (deep_link_address if auto_trigger_search else search_addres
 if (search_btn and search_address) or auto_trigger_search:
     st.session_state.deep_link_applied_address = address_to_assess
     st.session_state.last_address = address_to_assess
-    lat, lon = geocode_address(address_to_assess)
+    prefetched_assessment = None
+    lat, lon = None, None
+
+    if auto_trigger_search and auth_bypass_enabled and deep_link_address:
+        prefetched_assessment = auto_assess_from_address(address_to_assess)
+        lat = prefetched_assessment.get('latitude') if prefetched_assessment else None
+        lon = prefetched_assessment.get('longitude') if prefetched_assessment else None
+
+    if lat is None or lon is None:
+        lat, lon = geocode_address(address_to_assess)
+
     if lat and lon:
         st.session_state.last_coords = (lat, lon)
 
         # Auto-assess the location
         with st.spinner("🔍 Analyzing site..."):
             try:
-                assessment_data = auto_assess_from_address(address_to_assess, lat, lon)
+                assessment_data = prefetched_assessment or auto_assess_from_address(address_to_assess, lat, lon)
                 assessment_data['project_type'] = st.session_state.selected_project_type
 
                 if auto_trigger_search:
@@ -549,6 +559,7 @@ if st.session_state.last_coords:
             viability_color=viability_color,
             zone_type=zone_type,
             has_overlay=has_overlay,
+            map_type="Satellite",
             zoom_start=zoom_start,
         )
         map_data = st_folium(m, height=720, use_container_width=True)
@@ -558,7 +569,8 @@ else:
     placeholder_map = folium.Map(
         location=[-37.8136, 144.9631],
         zoom_start=12,
-        tiles="OpenStreetMap"
+        tiles="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        attr="Esri"
     )
 
     folium.Marker(

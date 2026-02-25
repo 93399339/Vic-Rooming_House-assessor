@@ -323,7 +323,7 @@ def create_advanced_map(
     show_parks: bool = True,
     show_shops: bool = True,
     show_heritage: bool = False,
-    map_type: str = "OpenStreetMap",
+    map_type: str = "Satellite",
     zone_type: str = "",
     has_overlay: bool = False,
     zoom_start: int = 16,
@@ -369,6 +369,13 @@ def create_advanced_map(
         attr='Esri',
         name='Satellite View',
         overlay=False
+    ).add_to(m)
+    folium.TileLayer(
+        'https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+        attr='Esri',
+        name='Satellite Labels',
+        overlay=True,
+        control=True,
     ).add_to(m)
     folium.TileLayer(
         'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
