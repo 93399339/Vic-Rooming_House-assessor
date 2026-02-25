@@ -12,7 +12,6 @@ from streamlit_folium import st_folium
 import pandas as pd
 import sqlite3
 from datetime import datetime
-from geopy.geocoders import Nominatim
 import time
 
 # ============================================================================
@@ -34,7 +33,7 @@ from core.scoring import (
 from core.pdf_generator import generate_due_diligence_pdf
 from ui.advanced_map import create_advanced_map, get_nearby_summary
 from ui.interactive_map_enhanced import create_professional_interactive_map
-from core.data_fetcher import auto_assess_from_address
+from core.data_fetcher import auto_assess_from_address, geocode_address as fetcher_geocode_address
 from simple_auth import check_authentication, show_logout_button
 from core.vicgis_wfs_lookup import auto_fill_from_vicgis, get_planning_data
 from portfolio_utils import get_portfolio_stats, filter_by_viability
@@ -71,6 +70,17 @@ st.set_page_config(
 # Ensure styling is applied before rendering any pages (including the login page)
 apply_archistar_aesthetic()
 
+# Query params (read early for auth bypass + deep-link behavior)
+auth_bypass_param = st.query_params.get("auth_bypass", "")
+if isinstance(auth_bypass_param, list):
+    auth_bypass_param = auth_bypass_param[0] if auth_bypass_param else ""
+auth_bypass_enabled = str(auth_bypass_param).strip().lower() == "true"
+
+deep_link_address = st.query_params.get("address", "")
+if isinstance(deep_link_address, list):
+    deep_link_address = deep_link_address[0] if deep_link_address else ""
+deep_link_address = (deep_link_address or "").strip()
+
 # Secrets startup check (production-safe warnings instead of hard failures)
 secret_status = get_secret_status()
 if not secret_status.get("maps"):
@@ -78,8 +88,15 @@ if not secret_status.get("maps"):
 if not secret_status.get("vicplan"):
     st.warning("VicPlan API secret not configured. Public planning lookups will be used where available.", icon="⚠️")
 
-# Authentication
-check_authentication()
+# Authentication (supports explicit auth bypass for control-centre deep links)
+if auth_bypass_enabled:
+    st.session_state.authenticated = True
+    st.session_state.user = {
+        "email": "admin@urhappyhome.com",
+        "name": "Administrator",
+    }
+else:
+    check_authentication()
 
 # Database
 init_database()
@@ -111,32 +128,18 @@ if 'deep_link_applied_address' not in st.session_state:
 if 'selected_project_type' not in st.session_state:
     st.session_state.selected_project_type = "Standard Rooming House"
 
-# Deep-link support: /?address=146A+Manchester+Road
-deep_link_address = st.query_params.get("address", "")
-if isinstance(deep_link_address, list):
-    deep_link_address = deep_link_address[0] if deep_link_address else ""
-deep_link_address = (deep_link_address or "").strip()
-
 # ============================================================================
 # GEOCODING SETUP
 # ============================================================================
-
-@st.cache_resource
-def get_geocoder():
-    """Initialize geocoder with caching"""
-    return Nominatim(user_agent="vic_rooming_house_assessor")
-
-
 def geocode_address(address):
-    """Geocode an address and return lat, lon"""
+    """Geocode an address and return lat, lon using production geocoding pipeline."""
     try:
-        geocoder = get_geocoder()
-        location = geocoder.geocode(address, timeout=10)
-        if location:
-            return location.latitude, location.longitude
-        else:
+        latitude, longitude = fetcher_geocode_address(address)
+        if latitude is not None and longitude is not None:
+            return latitude, longitude
+        if address:
             st.error(f"Could not find coordinates for: {address}")
-            return None, None
+        return None, None
     except Exception as e:
         st.error(f"Geocoding error: {e}")
         return None, None
@@ -221,7 +224,24 @@ def load_portfolio_analytics_data():
 
 # Left sidebar filter panel
 with st.sidebar:
-    st.link_button("↩ Return to Control Centre", "https://peppy-churros-175700.netlify.app/", use_container_width=True)
+    st.markdown(
+        """
+        <a href="https://peppy-churros-175700.netlify.app/" target="_self" style="
+            display:block;
+            width:100%;
+            text-align:center;
+            background: linear-gradient(135deg, #2ecc71, #1f7f4c);
+            color:#ffffff;
+            border: 1px solid rgba(46, 204, 113, 0.65);
+            border-radius:12px;
+            padding:0.58rem 0.95rem;
+            font-weight:700;
+            text-decoration:none;
+            box-shadow: 0 6px 18px rgba(46, 204, 113, 0.28);
+        ">↩ Return to Control Centre</a>
+        """,
+        unsafe_allow_html=True,
+    )
     st.divider()
 
     st.markdown("### 🏠 UR Happy Home")
@@ -470,8 +490,8 @@ if (search_btn and search_address) or auto_trigger_search:
                         constraints.append("Planning overlay present - requires additional approval")
                     if assessment_data.get('dist_transport', 0) > 800:
                         constraints.append("Distance to nearest transport exceeds catchment")
-                    if assessment_data.get('lot_area', 0) < 336:
-                        constraints.append("Lot area below minimum 336sqm requirement")
+                    if assessment_data.get('lot_area', 0) < 316:
+                        constraints.append("Lot area below minimum 316sqm requirement")
 
                     reg = assessment_data.get('regulatory_findings')
                     if reg:
@@ -700,13 +720,6 @@ if property_data:
         cards_per_row=3,
     )
 
-    st.markdown("#### Compliance Links")
-    render_card_grid(
-        [
-            render_actions_card,
-        ],
-        cards_per_row=3,
-    )
 else:
     st.info("Select a site to view intelligence panels.")
     render_external_research_command_center(st.session_state.last_address)
@@ -927,6 +940,15 @@ if st.session_state.get('generate_report'):
                     st.session_state.generate_report = False
                 except Exception as e:
                     st.error(f"Report generation failed: {str(e)[:100]}")
+
+# =========================================================================
+# BOTTOM COMPLIANCE LINKS (FULL-WIDTH)
+# =========================================================================
+
+if st.session_state.assessment_complete and st.session_state.property_data and 'render_actions_card' in globals():
+    st.divider()
+    st.markdown("#### Compliance Links")
+    render_actions_card()
 
 # ============================================================================
 # FOOTER - DEBUG INFO (Collapsible in development)

@@ -22,7 +22,7 @@ def create_professional_interactive_map(
     show_parks=True,
     show_shops=True,
     show_heritage=False,
-    map_type="OpenStreetMap"
+    map_type="Satellite Hybrid"
 ):
     """
     Create a professional interactive map with multiple layers and controls.
@@ -47,22 +47,46 @@ def create_professional_interactive_map(
         Folium map object with layers and POI data
     """
     
-    # Color mapping for tilesets
-    tileset_map = {
-        "OpenStreetMap": "OpenStreetMap.Mapnik",
-        "Satellite": "Esri.WorldImagery",
-        "Terrain": "OpenTopoMap",
-    }
-    tileset = tileset_map.get(map_type, "OpenStreetMap.Mapnik")
-    
     # Initialize map with professional styling
-    m = folium.Map(
-        location=[latitude, longitude],
-        zoom_start=15,
-        tiles=tileset,
-        prefer_canvas=True,
-        max_bounds=True
-    )
+    if map_type == "OpenStreetMap":
+        m = folium.Map(
+            location=[latitude, longitude],
+            zoom_start=15,
+            tiles="OpenStreetMap",
+            prefer_canvas=True,
+            max_bounds=True
+        )
+    elif map_type == "Terrain":
+        m = folium.Map(
+            location=[latitude, longitude],
+            zoom_start=15,
+            tiles="OpenTopoMap",
+            prefer_canvas=True,
+            max_bounds=True
+        )
+    else:
+        # Default professional basemap: Esri imagery + labels (hybrid-style)
+        m = folium.Map(
+            location=[latitude, longitude],
+            zoom_start=15,
+            tiles=None,
+            prefer_canvas=True,
+            max_bounds=True
+        )
+        folium.TileLayer(
+            tiles="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+            attr="Tiles © Esri",
+            name="Satellite Imagery",
+            overlay=False,
+            control=False,
+        ).add_to(m)
+        folium.TileLayer(
+            tiles="https://services.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}",
+            attr="Labels © Esri",
+            name="Satellite Labels",
+            overlay=True,
+            control=False,
+        ).add_to(m)
     
     # Create feature groups for layer control
     site_layer = folium.FeatureGroup(name="📍 Site & Lot Boundaries", show=True)
