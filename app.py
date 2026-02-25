@@ -137,11 +137,10 @@ def geocode_address(address):
         latitude, longitude = fetcher_geocode_address(address)
         if latitude is not None and longitude is not None:
             return latitude, longitude
-        if address:
-            st.error(f"Could not find coordinates for: {address}")
+        st.info("Initializing high-precision map...")
         return None, None
     except Exception as e:
-        st.error(f"Geocoding error: {e}")
+        st.info("Initializing high-precision map...")
         return None, None
 
 

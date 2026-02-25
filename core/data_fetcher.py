@@ -22,6 +22,7 @@ import time
 import json
 import os
 import requests
+import streamlit as st
 from urllib.parse import urlencode
 
 from ui.advanced_map import get_nearby_summary, get_nearby_activity_centres
@@ -29,7 +30,6 @@ from rooming_house_standards import evaluate_rooming_house_compliance
 from standard_rooming_house_design import evaluate_site_suitability_for_design
 from haversine import haversine
 from core.vicgis_wfs_lookup import query_parcel_at_point
-from config import get_maps_api_key
 
 # ============================================================================
 # PROPERTY DATA CACHING
@@ -398,7 +398,11 @@ def _estimate_by_location_tier(lat: float, lon: float) -> Dict[str, float]:
 
 def geocode_address(address: str) -> Tuple[Optional[float], Optional[float]]:
     def _geocode_with_google_maps(query: str) -> Tuple[Optional[float], Optional[float]]:
-        api_key = get_maps_api_key()
+        try:
+            api_key = str(st.secrets.get("MAPS_API_KEY", "")).strip()
+        except Exception:
+            api_key = ""
+
         if not api_key:
             return None, None
 
@@ -408,6 +412,8 @@ def geocode_address(address: str) -> Tuple[Optional[float], Optional[float]]:
                 params={
                     "address": query,
                     "components": "country:AU",
+                    "region": "au",
+                    "language": "en-AU",
                     "key": api_key,
                 },
                 timeout=10,
@@ -464,6 +470,8 @@ def auto_assess_from_address(address: str, lat: float = None, lon: float = None)
         lat: Optional latitude (if already geocoded)
         lon: Optional longitude (if already geocoded)
     """
+    time.sleep(0.5)
+
     # Use provided coordinates or geocode the address
     if lat is None or lon is None:
         lat, lon = geocode_address(address)
