@@ -224,22 +224,8 @@ def load_portfolio_analytics_data():
 
 # Left sidebar filter panel
 with st.sidebar:
-    st.markdown(
-        """
-        <a href="https://peppy-churros-175700.netlify.app/" target="_blank" rel="noopener noreferrer" style="
-            display:block;
-            width:100%;
-            text-align:center;
-            background: linear-gradient(135deg, #2ecc71, #1f7f4c);
-            color:#ffffff;
-            border: 1px solid rgba(46, 204, 113, 0.65);
-            border-radius:12px;
-            padding:0.58rem 0.95rem;
-            font-weight:700;
-            text-decoration:none;
-            box-shadow: 0 6px 18px rgba(46, 204, 113, 0.28);
-        ">↩ Return to Control Centre</a>
-        """,
+    st.sidebar.markdown(
+        '<a href="https://peppy-churros-175700.netlify.app/" target="_self" style="text-decoration: none;"><button style="width: 100%; cursor: pointer;">⬅️ Return to Control Centre</button></a>',
         unsafe_allow_html=True,
     )
     st.divider()
