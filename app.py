@@ -115,8 +115,12 @@ if 'assessment_id' not in st.session_state:
     st.session_state.assessment_id = None
 if 'assessment_data' not in st.session_state:
     st.session_state.assessment_data = {}
+if 'assessment_results' not in st.session_state:
+    st.session_state.assessment_results = {}
 if 'property_data' not in st.session_state:
     st.session_state.property_data = None
+if 'search_triggered' not in st.session_state:
+    st.session_state.search_triggered = False
 if 'map_mode' not in st.session_state:
     st.session_state.map_mode = "search"
 if 'report_pdf_bytes' not in st.session_state:
@@ -271,7 +275,9 @@ with st.sidebar:
         st.session_state.last_address = None
         st.session_state.last_coords = None
         st.session_state.assessment_data = {}
+        st.session_state.assessment_results = {}
         st.session_state.property_data = None
+        st.session_state.search_triggered = False
         st.rerun()
     
     st.divider()
@@ -332,7 +338,9 @@ with st.sidebar:
                     st.session_state.last_address = loaded['address']
                     st.session_state.last_coords = (loaded['latitude'], loaded['longitude'])
                     st.session_state.assessment_data = loaded
+                    st.session_state.assessment_results = loaded
                     st.session_state.property_data = loaded
+                    st.session_state.search_triggered = True
                     st.rerun()
     else:
         st.info("No assessments yet")
@@ -518,7 +526,9 @@ if (search_btn and search_address) or auto_trigger_search:
                     assessment_data['recommendations'] = recommendations
 
                 st.session_state.property_data = assessment_data
+                st.session_state.assessment_results = assessment_data
                 st.session_state.assessment_complete = True
+                st.session_state.search_triggered = True
 
             except Exception as e:
                 st.error(f"Assessment error: {str(e)[:100]}")
@@ -569,7 +579,7 @@ else:
 
 st.markdown("### 💡 Property Intelligence")
 
-property_data = st.session_state.property_data
+property_data = st.session_state.get('assessment_results') or st.session_state.property_data
 if property_data:
     score = property_data.get('raw_score', 0)
     status = property_data.get('viability_status', 'PENDING')
@@ -589,6 +599,7 @@ if property_data:
     ach_flag = risk_checks.get('aboriginal_cultural_heritage_sensitivity', False)
     flood_flag = risk_checks.get('special_building_overlay_flood_risk', False)
     design_validation = property_data.get('urhh_design_validation', {})
+    blueprint_pass = bool(design_validation.get('pass_fail'))
 
     def render_snapshot_card():
         with st.container(border=True):
@@ -599,10 +610,10 @@ if property_data:
                 "Suitability",
                 f"{status_icon} {status}",
                 icon="🏁",
-                color="pass" if color == 'green' else status_pod,
+                color="pass" if blueprint_pass else status_pod,
                 high_fidelity=True,
             )
-            render_infographic_tile("Suitability Score", f"{score:.0f}/100", icon="📈", color="pass" if color == 'green' else status_pod)
+            render_infographic_tile("Suitability Score", f"{score:.0f}/100", icon="📈", color="pass" if blueprint_pass else status_pod)
             render_infographic_pod("VicPlan Zone", str(property_data.get('vicplan_zone') or property_data.get('zone_type', 'N/A'))[:32], icon="🧱", subtitle="Primary planning control", status="neutral")
 
     def render_yield_card():
@@ -710,7 +721,8 @@ if property_data:
                     use_container_width=True,
                     key="download_report_card_btn",
                 )
-            render_external_research_command_center(property_data.get('address', st.session_state.last_address))
+            with st.expander("Open Research Links & Actions", expanded=False):
+                render_external_research_command_center(property_data.get('address', st.session_state.last_address))
 
     st.markdown("#### Financial Potential")
     render_card_grid(
@@ -742,7 +754,8 @@ if property_data:
 
 else:
     st.info("Select a site to view intelligence panels.")
-    render_external_research_command_center(st.session_state.last_address)
+    with st.expander("Open Research Links & Actions", expanded=False):
+        render_external_research_command_center(st.session_state.last_address)
 
 st.caption("Powered by UR Happy Home Intelligence")
 
