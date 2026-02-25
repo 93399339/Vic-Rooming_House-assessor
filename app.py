@@ -47,6 +47,7 @@ from ui.ui_enhancements import (
     render_project_type_selector,
     get_project_type_subtitle,
     render_sda_hospital_proximity_tile,
+    render_intelligence_panel,
 )
 from ui.map_first_layout import render_left_filter_panel, render_right_property_panel, render_card_grid
 from config import has_maps_api_key, has_vicplan_api_key, get_secret_status
@@ -131,6 +132,16 @@ if 'deep_link_applied_address' not in st.session_state:
     st.session_state.deep_link_applied_address = None
 if 'selected_project_type' not in st.session_state:
     st.session_state.selected_project_type = "Standard Rooming House"
+
+if deep_link_address and not st.session_state.get('assessment_results'):
+    st.session_state.search_triggered = True
+    st.session_state.last_address = deep_link_address
+    prefilled = auto_assess_from_address(deep_link_address)
+    if prefilled:
+        st.session_state.assessment_results = prefilled
+        st.session_state.property_data = prefilled
+        if prefilled.get('latitude') is not None and prefilled.get('longitude') is not None:
+            st.session_state.last_coords = (prefilled.get('latitude'), prefilled.get('longitude'))
 
 # ============================================================================
 # GEOCODING SETUP
@@ -368,7 +379,10 @@ st.markdown("### 🗺️ Interactive Site Map")
 # Address search handling
 auto_trigger_search = bool(
     deep_link_address
-    and deep_link_address != st.session_state.deep_link_applied_address
+    and (
+        deep_link_address != st.session_state.deep_link_applied_address
+        or st.session_state.get('search_triggered')
+    )
 )
 
 address_to_assess = (deep_link_address if auto_trigger_search else search_address or "").strip()
@@ -528,7 +542,7 @@ if (search_btn and search_address) or auto_trigger_search:
                 st.session_state.property_data = assessment_data
                 st.session_state.assessment_results = assessment_data
                 st.session_state.assessment_complete = True
-                st.session_state.search_triggered = True
+                st.session_state.search_triggered = False
 
             except Exception as e:
                 st.error(f"Assessment error: {str(e)[:100]}")
@@ -580,7 +594,7 @@ else:
 st.markdown("### 💡 Property Intelligence")
 
 property_data = st.session_state.get('assessment_results') or st.session_state.property_data
-if property_data:
+if render_intelligence_panel():
     score = property_data.get('raw_score', 0)
     status = property_data.get('viability_status', 'PENDING')
     color = property_data.get('viability_color', 'gray')

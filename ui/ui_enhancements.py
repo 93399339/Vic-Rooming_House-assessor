@@ -182,6 +182,11 @@ def get_project_type_subtitle(project_type: str) -> str:
     return PROJECT_TYPE_SUBTITLES.get(project_type, "Assessment Requirements")
 
 
+def render_intelligence_panel() -> bool:
+    """Return whether intelligence content should render immediately."""
+    return bool(st.session_state.get("assessment_results"))
+
+
 def _nearest_hospital_distance_m(assessment_data: dict) -> float | None:
     """Extract nearest hospital distance from amenities summary if available."""
     amenities = (assessment_data or {}).get("amenities_summary", {}) or {}

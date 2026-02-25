@@ -51,7 +51,7 @@ def create_professional_interactive_map(
     if map_type == "OpenStreetMap":
         m = folium.Map(
             location=[latitude, longitude],
-            zoom_start=15,
+            zoom_start=19,
             tiles="OpenStreetMap",
             prefer_canvas=True,
             max_bounds=True
@@ -59,7 +59,7 @@ def create_professional_interactive_map(
     elif map_type == "Terrain":
         m = folium.Map(
             location=[latitude, longitude],
-            zoom_start=15,
+            zoom_start=19,
             tiles="OpenTopoMap",
             prefer_canvas=True,
             max_bounds=True
@@ -68,7 +68,7 @@ def create_professional_interactive_map(
         # Default professional basemap: Esri imagery + labels (hybrid-style)
         m = folium.Map(
             location=[latitude, longitude],
-            zoom_start=15,
+            zoom_start=19,
             tiles=None,
             prefer_canvas=True,
             max_bounds=True
