@@ -397,70 +397,42 @@ def _estimate_by_location_tier(lat: float, lon: float) -> Dict[str, float]:
 # ============================================================================
 
 def geocode_address(address: str) -> Tuple[Optional[float], Optional[float]]:
-    def _wait_for_maps_api_key(max_attempts: int = 10, delay_seconds: float = 0.2) -> str:
-        for _ in range(max_attempts):
-            try:
-                api_key = str(st.secrets["MAPS_API_KEY"]).strip()
-                if api_key:
-                    return api_key
-            except Exception:
-                pass
-            time.sleep(delay_seconds)
-        return ""
+    import requests
+    from geopy.geocoders import Nominatim
+    import streamlit as st
 
-    def _geocode_with_google_maps(query: str) -> Tuple[Optional[float], Optional[float]]:
-        api_key = _wait_for_maps_api_key()
-        if not api_key:
-            return None, None
-
-        try:
-            response = requests.get(
-                "https://maps.googleapis.com/maps/api/geocode/json",
-                params={
-                    "address": query,
-                    "components": "country:AU",
-                    "region": "au",
-                    "language": "en-AU",
-                    "key": api_key,
-                },
-                timeout=10,
-            )
-            if response.status_code != 200:
-                return None, None
-
-            payload = response.json()
-            if payload.get("status") != "OK" or not payload.get("results"):
-                return None, None
-
-            location = payload["results"][0].get("geometry", {}).get("location", {})
-            lat = location.get("lat")
-            lon = location.get("lng")
-            if lat is None or lon is None:
-                return None, None
-
-            return float(lat), float(lon)
-        except Exception:
-            return None, None
-
-    def _street_suburb_fallback_query(full_address: str) -> str:
-        parts = [p.strip() for p in (full_address or "").split(",") if p.strip()]
-        if len(parts) >= 2:
-            return f"{parts[0]}, {parts[1]}, VIC, Australia"
-        return full_address
-
+    # 1. Try Google Maps First
     try:
-        lat, lon = _geocode_with_google_maps(address)
-        if lat is not None and lon is not None:
-            return lat, lon
+        api_key = st.secrets.get("MAPS_API_KEY", "").strip()
+        if api_key:
+            resp = requests.get(
+                "https://maps.googleapis.com/maps/api/geocode/json",
+                params={"address": address, "key": api_key, "region": "au"},
+                timeout=5
+            )
+            if resp.status_code == 200:
+                data = resp.json()
+                if data.get("status") == "OK" and data.get("results"):
+                    loc = data["results"][0]["geometry"]["location"]
+                    return float(loc["lat"]), float(loc["lng"])
+    except Exception as e:
+        print(f"Google Geocode failed: {e}")
+    # 2. Bulletproof Fallback to Nominatim (OpenStreetMap)
+    try:
+        geolocator = Nominatim(user_agent="ur_happy_home_assessor_v2")
+        location = geolocator.geocode(address, timeout=10)
+        if location:
+            return location.latitude, location.longitude
 
-        fallback_query = _street_suburb_fallback_query(address)
-        if fallback_query and fallback_query != address:
-            lat, lon = _geocode_with_google_maps(fallback_query)
-            if lat is not None and lon is not None:
-                return lat, lon
-    except Exception:
-        return None, None
-
+        # 3. Last Resort: Try just the Suburb and State
+        parts = [p.strip() for p in address.split(",")]
+        if len(parts) >= 2:
+            simplified = f"{parts[-2]}, {parts[-1]}, Australia"
+            location = geolocator.geocode(simplified, timeout=10)
+            if location:
+                return location.latitude, location.longitude
+    except Exception as e:
+        print(f"Nominatim Geocode failed: {e}")
     return None, None
 
 # ============================================================================

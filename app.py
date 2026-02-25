@@ -142,6 +142,9 @@ if deep_link_address and not st.session_state.get('assessment_results'):
         st.session_state.property_data = prefilled
         if prefilled.get('latitude') is not None and prefilled.get('longitude') is not None:
             st.session_state.last_coords = (prefilled.get('latitude'), prefilled.get('longitude'))
+    else:
+        st.session_state.search_triggered = True
+        st.session_state.deep_link_applied_address = None
 
 # ============================================================================
 # GEOCODING SETUP
@@ -239,7 +242,9 @@ def load_portfolio_analytics_data():
 # Left sidebar filter panel
 with st.sidebar:
     st.sidebar.markdown(
-        '<a href="https://peppy-churros-175700.netlify.app/" target="_self" style="text-decoration: none;"><button style="width: 100%; cursor: pointer;">⬅️ Return to Control Centre</button></a>',
+        '<a href="https://peppy-churros-175700.netlify.app/" target="_self" style="text-decoration: none;">'
+        '<button style="width: 100%; cursor: pointer; background: #334155; color: white; padding: 10px; border-radius: 8px; border: none; margin-bottom: 15px; font-weight: bold;">⬅️ Return to Control Centre</button>'
+        '</a>',
         unsafe_allow_html=True,
     )
     st.divider()
