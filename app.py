@@ -584,7 +584,7 @@ else:
         location=[-37.8136, 144.9631],
         zoom_start=12,
         tiles="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-        attr="Esri"
+        attr="Tiles © Esri"
     )
 
     folium.Marker(

@@ -398,13 +398,12 @@ def _estimate_by_location_tier(lat: float, lon: float) -> Dict[str, float]:
 
 def geocode_address(address: str) -> Tuple[Optional[float], Optional[float]]:
     import requests
-    from geopy.geocoders import Nominatim
     import streamlit as st
-
-    # 1. Try Google Maps First
+    from geopy.geocoders import ArcGIS
+    # 1. Try Google Maps First (Ignores placeholder text)
     try:
         api_key = st.secrets.get("MAPS_API_KEY", "").strip()
-        if api_key:
+        if api_key and api_key != "YOUR_ACTUAL_KEY_HERE":
             resp = requests.get(
                 "https://maps.googleapis.com/maps/api/geocode/json",
                 params={"address": address, "key": api_key, "region": "au"},
@@ -417,22 +416,22 @@ def geocode_address(address: str) -> Tuple[Optional[float], Optional[float]]:
                     return float(loc["lat"]), float(loc["lng"])
     except Exception as e:
         print(f"Google Geocode failed: {e}")
-    # 2. Bulletproof Fallback to Nominatim (OpenStreetMap)
+    # 2. Bulletproof Fallback using ArcGIS (Excellent for Australian addresses)
     try:
-        geolocator = Nominatim(user_agent="ur_happy_home_assessor_v2")
-        location = geolocator.geocode(address, timeout=10)
+        geolocator = ArcGIS(timeout=10)
+        location = geolocator.geocode(address)
         if location:
             return location.latitude, location.longitude
 
-        # 3. Last Resort: Try just the Suburb and State
+        # 3. Last Resort: Suburb and State fallback via ArcGIS
         parts = [p.strip() for p in address.split(",")]
-        if len(parts) >= 2:
-            simplified = f"{parts[-2]}, {parts[-1]}, Australia"
-            location = geolocator.geocode(simplified, timeout=10)
+        if len(parts) >= 3:
+            simplified = f"{parts[1]}, {parts[2]}, Australia"
+            location = geolocator.geocode(simplified)
             if location:
                 return location.latitude, location.longitude
     except Exception as e:
-        print(f"Nominatim Geocode failed: {e}")
+        print(f"ArcGIS Geocode failed: {e}")
     return None, None
 
 # ============================================================================
