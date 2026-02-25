@@ -137,7 +137,9 @@ def get_blueprint_setback_recommendations(lot_depth, project_type=PROJECT_TYPE_R
             f"Lot depth supports minimum Blueprint depth but not full target range with setbacks ({setback['required_total_depth_max_m']:.1f}m)."
         )
     else:
-        recs.append("Lot depth can support project depth range with required setbacks.")
+        recs.append(
+            f"PASS: Front setback {thresholds['front_setback']:.0f}m and rear setback {thresholds['rear_setback_min']:.0f}-{thresholds['rear_setback_max']:.0f}m criteria are satisfied for this lot depth."
+        )
 
     if thresholds["requires_hospital_proximity"] and assessment_data:
         nearest_hospital_m = _nearest_hospital_distance_m(assessment_data)
@@ -215,13 +217,13 @@ def validate_urhh_design(lot_width, lot_depth, lot_area, project_type=PROJECT_TY
 
     if width < thresholds["min_width"]:
         reasons.append(f"Lot width {width:.2f}m is less than required minimum {thresholds['min_width']:.2f}m for {thresholds['project_type']}")
-    if not (thresholds["min_depth"] <= depth <= thresholds["max_depth"]):
+    if depth < thresholds["min_depth"]:
         reasons.append(
-            f"Lot depth {depth:.2f}m is outside target range {thresholds['min_depth']:.1f}-{thresholds['max_depth']:.1f}m"
+            f"Lot depth {depth:.2f}m is less than required minimum {thresholds['min_depth']:.1f}m"
         )
-    if not (thresholds["target_area_min"] <= area <= thresholds["target_area_max"]):
+    if area < thresholds["min_lot_area"]:
         reasons.append(
-            f"Lot area {area:.1f}m² is outside target range {thresholds['target_area_min']:.0f}-{thresholds['target_area_max']:.0f}m²"
+            f"Lot area {area:.1f}m² is less than required minimum {thresholds['min_lot_area']:.0f}m²"
         )
 
     if project_type == PROJECT_TYPE_DUAL_OCC and area < 650.0:
